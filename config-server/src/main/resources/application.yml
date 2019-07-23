@@ -1,0 +1,18 @@
+server:
+  port: 8001
+  undertow:
+    io-threads: 2
+    worker-threads: 50
+    buffer-size: 1024
+    direct-buffers: true
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native # 加载本地配置
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/

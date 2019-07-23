@@ -1,0 +1,31 @@
+server:
+  port: 9411
+
+spring:
+  application:
+    name: zipkin-server
+  datasource:
+    url: jdbc:mysql://47.98.149.81:3306/zipkin?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: Yanhibn&622511
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 20        #连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+      minimum-idle: 10             #连接池最小连接数
+      connection-timeout: 30000    #连接超时时间 --30秒
+      idle-timeout: 60000          #连接空闲时间 --1分钟
+      max-lifetime: 300000         #连接生命周期，建议设置比数据库超时时长少30秒以上 --5分钟
+      validation-timeout: 3000
+      login-timeout: 5
+      connection-test-query: SELECT 1
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+
+zipkin:
+  storage:
+    type: mysql

@@ -1,0 +1,29 @@
+server:
+  port: 7101
+  undertow:
+    io-threads: 8 # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+    worker-threads: 200 # 阻塞任务线程池,undertow会从这个线程池中取得线程,默认值是IO线程数*8,最大值400
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    buffer-size: 1024 # 每块buffer的空间大小,越小的空间被利用越充分
+    direct-buffers: true # 是否分配的直接内存(NIO直接分配的堆外内存)
+
+spring:
+  application:
+    name: feign-server
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+
+feign:
+  hystrix:
+    enabled: true # 开启熔断器
+
+logging:
+  config: classpath:spring-logback.xml
+#  level: info
